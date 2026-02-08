@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+
+<!-- background shapes -->
+<div class="shapes">
+    <span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<div class="container">
+    <h1>Todo App ✨</h1>
+
+    <div class="stats">
+        {{ completed }} / {{ total }} tasks completed
+    </div>
+
+    <form method="POST" class="add-form">
+        <input type="text" name="task" placeholder="Add a new task..." required>
+        <button type="submit" class="add-btn">Add</button>
+    </form>
+
+    {% for todo in todos %}
+    <div class="todo {% if todo.done %}done{% endif %}">
+        <div class="todo-header">{{ todo.task }}</div>
+
+        <div class="actions">
+            <a href="/toggle/{{ loop.index0 }}">
+                {% if todo.done %}Undo{% else %}Done{% endif %}
+            </a>
+
+            <a href="#"
+               class="edit-btn"
+               data-index="{{ loop.index0 }}"
+               data-task="{{ todo.task | e }}">
+                Edit
+            </a>
+
+            <a href="/delete/{{ loop.index0 }}">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal" id="editModal">
+    <div class="modal-content">
+        <h3>Edit Task</h3>
+
+        <form id="editForm" method="POST">
+            <input type="text" name="task" id="editInput" required>
+            <div class="modal-actions">
+                <button type="submit" class="add-btn">Save</button>
+                <button type="button" class="cancel-btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
