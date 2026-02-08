@@ -37,11 +37,11 @@ body {
 
 /* main card */
 .container {
-    background: white;
+    background: rgba(255, 255, 255, 0.404);
     width: 420px;
     padding: 25px;
     border-radius: 18px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.055);
     text-align: center;
     position: relative;
     z-index: 2;
