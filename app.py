@@ -5,6 +5,7 @@ import os
 app = Flask(__name__)
 DATA_FILE = "todos.json"
 
+
 def load_todos():
     if not os.path.exists(DATA_FILE):
         return []
@@ -17,11 +18,14 @@ def load_todos():
     except json.JSONDecodeError:
         return []
 
+
 def save_todos(todos):
     with open(DATA_FILE, "w") as f:
         json.dump(todos, f, indent=2)
 
 @app.route("/", methods=["GET", "POST"])
+
+
 def index():
     todos = load_todos()
 
@@ -43,6 +47,8 @@ def index():
     )
 
 @app.route("/toggle/<int:index>")
+
+
 def toggle(index):
     todos = load_todos()
     if 0 <= index < len(todos):
@@ -51,6 +57,8 @@ def toggle(index):
     return redirect(url_for("index"))
 
 @app.route("/edit/<int:index>", methods=["POST"])
+
+
 def edit(index):
     todos = load_todos()
     new_task = request.form.get("task")
@@ -60,6 +68,8 @@ def edit(index):
     return redirect(url_for("index"))
 
 @app.route("/delete/<int:index>")
+
+
 def delete(index):
     todos = load_todos()
     if 0 <= index < len(todos):
