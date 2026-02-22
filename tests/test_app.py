@@ -2,6 +2,7 @@ def test_app_import():
     from app import app
     assert app is not None
 
+
 def test_home_page():
     from app import app
     app.config["TESTING"] = True
