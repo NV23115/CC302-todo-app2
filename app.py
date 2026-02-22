@@ -26,8 +26,6 @@ def save_todos(todos):
 
 
 @app.route("/", methods=["GET", "POST"])
-
-
 def index():
     todos = load_todos()
 
@@ -50,8 +48,6 @@ def index():
 
 
 @app.route("/toggle/<int:index>")
-
-
 def toggle(index):
     todos = load_todos()
     if 0 <= index < len(todos):
@@ -61,8 +57,6 @@ def toggle(index):
 
 
 @app.route("/edit/<int:index>", methods=["POST"])
-
-
 def edit(index):
     todos = load_todos()
     new_task = request.form.get("task")
@@ -73,8 +67,6 @@ def edit(index):
 
 
 @app.route("/delete/<int:index>")
-
-
 def delete(index):
     todos = load_todos()
     if 0 <= index < len(todos):
