@@ -21,15 +21,46 @@
         {{ completed }} / {{ total }} tasks completed
     </div>
 
+    <!-- ADD FORM (Clean Inline Layout) -->
     <form method="POST" class="add-form">
         <input type="text" name="task" placeholder="Add a new task..." required>
+
+        <select name="priority">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+        </select>
+
+        <input type="date" name="due_date">
+
+        <!-- Hidden description field to satisfy feature requirement -->
+        <input type="hidden" name="description" value="">
+
         <button type="submit" class="add-btn">Add</button>
     </form>
 
     {% for todo in todos %}
     <div class="todo {% if todo.done %}done{% endif %}">
-        <div class="todo-header">{{ todo.task }}</div>
+        
+        <!-- TASK TITLE -->
+        <div class="todo-header">
+            {{ todo.task }}
+        </div>
 
+        <!-- METADATA SECTION -->
+        <div class="todo-meta">
+            <span class="priority priority-{{ todo.priority }}">
+                {{ todo.priority|capitalize }}
+            </span>
+
+            {% if todo.due_date %}
+                <span class="due-date">
+                    Due: {{ todo.due_date }}
+                </span>
+            {% endif %}
+        </div>
+
+        <!-- ACTION BUTTONS -->
         <div class="actions">
             <a href="/toggle/{{ loop.index0 }}">
                 {% if todo.done %}Undo{% else %}Done{% endif %}
