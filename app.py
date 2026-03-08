@@ -3,6 +3,8 @@ import json
 import os
 from datetime import datetime
 
+TESTING_TODOS = None
+
 app = Flask(__name__)
 
 DATA_FILE = "todos.json"
@@ -12,6 +14,9 @@ DATA_FILE = "todos.json"
 # Load Todos
 # -------------------------------
 def load_todos():
+    if app.config.get("TESTING") and TESTING_TODOS is not None:
+        return TESTING_TODOS
+    
     if not os.path.exists(DATA_FILE):
         return []
 
@@ -32,8 +37,11 @@ def load_todos():
 # Save Todos
 # -------------------------------
 def save_todos(todos):
+    if app.config.get("TESTING") and TESTING_TODOS is not None:
+        return
     with open(DATA_FILE, "w") as f:
         json.dump(todos, f, indent=2)
+    
 
 
 # -------------------------------
